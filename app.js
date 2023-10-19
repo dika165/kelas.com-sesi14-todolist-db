@@ -1,14 +1,20 @@
 /*
-    1. Buat process CRUD untuk table Tasks
+    1. Buat function untuk delete user
+    2. Buat REST API untuk process CRUD untuk table Tasks.
+
 */
 import * as UserService from './services/user.js';
+import express from 'express';
 
-await UserService.getUser();
+const host = "0.0.0.0";
+const port = 8080;
 
-// UserService.createUser("Zafif", "zafif@gmail.com", "pass123");
+const app = express();
+app.use(express.json());
+app.get("/", UserService.getUser);
+app.post("/", UserService.createUser);
+app.put("/:id", UserService.updateUser);
 
-await UserService.updateUser(2, "mubaidi", "mubaydi@gmail.com");
-
-// UserService.deleteUser();
-
-await UserService.getUser();
+app.listen(port, host, ()=> {
+    console.log(`server berjalan di http://${host}:${port}`);
+})
